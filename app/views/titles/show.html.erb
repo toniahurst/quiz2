@@ -3,4 +3,7 @@
   <i><%= @title.address %></i>
   <br/><br/>
   <p><%= @title.description %></p>
+    <div class="float-right">
+    <%= link_to 'Edit', edit_title_path(@title), class: 'btn btn-primary' %>
+  </div>
 </div>
