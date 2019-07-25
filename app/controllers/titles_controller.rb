@@ -22,6 +22,12 @@ class TitlesController < ApplicationController
 		@title = title.find(params[:id])	
 	end
 
+	def update
+		@title = Title.find(params[:id])
+		@title.update_attributes(place_params)
+		redirect_to root_path
+	end
+
 	private
 
 	def title_params
