@@ -1,5 +1,5 @@
 class TitlesController < ApplicationController
-	before_action :authenticate_user!, only: [:new, :create]
+	before_action :authenticate_user!, only: [:new, :create, :edit, :update]
 
 	def index
 		@titles = Title.all
@@ -19,12 +19,27 @@ class TitlesController < ApplicationController
 	end
 
 	def edit
-		@title = title.find(params[:id])	
+  	@title = Title.find(params[:id])	
+
+  if @title.user != current_user
+    return render plain: 'Not Allowed', status: :forbidden
+  end
+
 	end
 
 	def update
+	  @title = Title.find(params[:id])
+	  if @title.user != current_user
+	    return render plain: 'Not Allowed', status: :forbidden
+	  end
+
+	  @title.update_attributes(title_params)
+	  redirect_to root_path
+	end
+
+	def destroy
 		@title = Title.find(params[:id])
-		@title.update_attributes(place_params)
+		@title.destroy
 		redirect_to root_path
 	end
 

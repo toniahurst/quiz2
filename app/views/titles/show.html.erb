@@ -1,9 +1,12 @@
 <div class="booyah-box col-10 offset-1">
   <h1><%= @title.name %></h1>
-  <i><%= @title.address %></i>
+  <i><%= @title.author %></i>
   <br/><br/>
   <p><%= @title.description %></p>
     <div class="float-right">
-    <%= link_to 'Edit', edit_title_path(@title), class: 'btn btn-primary' %>
+    	<% if current_user && current_user == @title.user %>
+    		<%= link_to 'Edit', edit_title_path(@title), class: 'btn btn-primary' %>
+    	<% end %>
+    <%= link_to 'Destroy', title_path(@title), method: :delete, data: {confirm: 'Are you sure you want to delete this?'},class: 'btn btn-danger' %>
   </div>
 </div>
