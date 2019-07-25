@@ -1,7 +1,8 @@
 class TitlesController < ApplicationController
+	
 
 	def index
-		@titles = Title.all 
+		@titles = Title.all
 	end
 
 	def new
@@ -9,15 +10,17 @@ class TitlesController < ApplicationController
 	end
 
 	def create
-    Title.create(title_params)
-    redirect_to root_path
-  end
+		Title.create(title_params)
+		redirect_to root_path
+	end
 
-  private
+	def show
+		
+	end
 
-  def title_params
-    params.require(:title).permit(:name, :author, :description)
-  end
+	private
 
+	def title_params
+		params.require(:title).permit(:name, :author, :description)
 	end
 end
