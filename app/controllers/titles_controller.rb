@@ -15,6 +15,7 @@ class TitlesController < ApplicationController
 	end
 
 	def show
+		@title = Title.find(params[:id])
 		
 	end
 
