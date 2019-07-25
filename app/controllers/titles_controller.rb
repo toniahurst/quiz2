@@ -10,8 +10,12 @@ class TitlesController < ApplicationController
 	end
 
 	def create
-		current_user.titles.create(title_params)
-		redirect_to root_path
+	  @title = current_user.titles.create(title_params)
+	  if @title.valid?
+	    redirect_to root_path
+	  else
+	    render :new, status: :unprocessable_entity
+	  end
 	end
 
 	def show
@@ -28,13 +32,18 @@ class TitlesController < ApplicationController
 	end
 
 	def update
-	  @title = Title.find(params[:id])
-	  if @title.user != current_user
-	    return render plain: 'Not Allowed', status: :forbidden
-	  end
+  	@title = Title.find(params[:id])
 
-	  @title.update_attributes(title_params)
-	  redirect_to root_path
+  if @title.user != current_user
+	  return render plain: 'Not Allowed', status: :forbidden
+	end
+
+  	@title.update_attributes(title_params)
+  	if @title.valid?
+    	redirect_to root_path
+  	else
+    	render :edit, status: :unprocessable_entity
+  	end
 	end
 
 	def destroy
