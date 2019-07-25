@@ -1,5 +1,5 @@
 class TitlesController < ApplicationController
-	before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+	before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
 	def index
 		@titles = Title.all
@@ -38,9 +38,13 @@ class TitlesController < ApplicationController
 	end
 
 	def destroy
-		@title = Title.find(params[:id])
-		@title.destroy
-		redirect_to root_path
+  	@title = Title.find(params[:id])
+  	if @title.user != current_user
+    	return render plain: 'Not Allowed', status: :forbidden
+  	end
+
+  	@title.destroy
+  	redirect_to root_path
 	end
 
 	private
