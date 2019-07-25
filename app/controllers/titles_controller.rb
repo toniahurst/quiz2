@@ -2,7 +2,7 @@ class TitlesController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
 	def index
-		@titles = Title.all
+		@titles = Title.order("name").page(params[:page]).per(5)
 	end
 
 	def new
