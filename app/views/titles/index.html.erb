@@ -3,5 +3,9 @@
     <h1><%= title.name %></h1><br />
     <i><%= title.author %></i><br /><br />
     <p><%= title.description %></p><br />
+
+    <% if title.user.present? %>
+    	<small><%= title.user.email %></small>
+    <% end %>
   </div>
 <% end %>

@@ -1,5 +1,5 @@
 class TitlesController < ApplicationController
-	
+	before_action :authenticate_user!, only: [:new, :create]
 
 	def index
 		@titles = Title.all
@@ -10,7 +10,7 @@ class TitlesController < ApplicationController
 	end
 
 	def create
-		Title.create(title_params)
+		current_user.titles.create(title_params)
 		redirect_to root_path
 	end
 
